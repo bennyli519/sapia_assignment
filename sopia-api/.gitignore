@@ -2,9 +2,6 @@
 /dist
 /node_modules
 
-# environment variables file
-.env
-
 # Logs
 logs
 *.log
@@ -38,3 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 database/data/*
+
+# environment variables file
+.env

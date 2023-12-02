@@ -11,7 +11,7 @@ services:
       DATABASE_NAME: sopia
       DATABASE_USER: benny
       DATABASE_PASS: admin
-      DATABASE_URI: mongodb://benny:admin@localhost:27017/sopia
+      DATABASE_URI: mongodb://benny:admin@mongo:27017/sopia
     volumes:
       - .:/app
     ports:
