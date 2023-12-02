@@ -12,6 +12,7 @@ services:
       DATABASE_USER: benny
       DATABASE_PASS: admin
       DATABASE_URI: mongodb://benny:admin@mongo:27017/sopia
+      JWT_SECRET: KOjpnPtGs1Nq6wDESwaSjWpEDnCm7Ux2gIyuK9xZ9UeSSaDRIkFh6geh1othjcL7
     volumes:
       - .:/app
     ports:

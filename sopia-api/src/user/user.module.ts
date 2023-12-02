@@ -1,16 +1,16 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { forwardRef, Module, OnModuleInit } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserController } from './controllers/user.controller';
+import { AuthModule } from 'src/auth/auth.module';
 import { User, UserSchema } from './models/user.model';
 import { UserService } from './services/user.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    forwardRef(() => AuthModule),
   ],
   providers: [UserService],
   exports: [UserService],
-  controllers: [UserController],
 })
 export class UserModule implements OnModuleInit {
   constructor(private readonly userService: UserService) {}
