@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import { LocalStrategy } from './local.strategy';
 import { UserModule } from '../user/user.module';
 import { JwtStrategy } from './jwt.strategy';
+import { RedisModule } from '../redis/redis.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { JwtStrategy } from './jwt.strategy';
     }),
     forwardRef(() => UserModule),
     PassportModule,
+    RedisModule,
   ],
 
   controllers: [AuthController],

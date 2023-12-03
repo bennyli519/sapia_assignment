@@ -3,7 +3,6 @@
 
 version: '3.8'
 services:
-  # app service for your backend
   api:
     container_name: api
     build: .
@@ -17,10 +16,10 @@ services:
       - .:/app
     ports:
       - '4001:4001'
+    links:
+      - redis 
     depends_on:
       - mongo
-
-  # start the mongodb service as container
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -34,3 +33,13 @@ services:
     volumes:
       - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./database/data:/data/db
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+volumes:
+  redis:
+    driver: local
+  
