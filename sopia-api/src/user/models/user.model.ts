@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { BaseEntity, BaseEntitySchema } from 'src/common/base/base.entity';
+import { BaseEntity, BaseEntitySchema } from '../../common/base/base.entity';
 
 export type UserDocument = User & Document;
 
@@ -14,17 +14,6 @@ export class User extends BaseEntity {
 
   @Prop()
   password: string;
-
-  @Prop({ type: Date, default: null })
-  lastLockedTime: Date;
-
-  async isMatchPassword(plainTextPassword: string): Promise<boolean> {
-    if (!this.password) {
-      return false;
-    }
-
-    return this.password === plainTextPassword;
-  }
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

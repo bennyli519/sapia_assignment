@@ -11,8 +11,8 @@ import * as bcrypt from 'bcryptjs';
 
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../user/services/user.service';
-import { User, UserDocument } from 'src/user/models/user.model';
-import { RedisService } from 'src/redis/serivces/redis.services';
+import { User, UserDocument } from '../../user/models/user.model';
+import { RedisService } from '../../redis/serivces/redis.service';
 
 const MAX_ATTEMPTS = 3;
 
@@ -30,6 +30,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userService.getUserByEmail(email);
+
     if (!user) throw new NotFoundException('User account not found');
 
     const userId = user._id;
@@ -40,12 +41,9 @@ export class AuthService {
       `${userId}:${email}-currentAttempts`,
     );
 
+    // update login attempts every time user tries to login
     await this.redisService.updateLoginAttempts(userId, ++currentAttempts);
     if (currentAttempts > MAX_ATTEMPTS) {
-      await this.userService.updateLastLockedTime({
-        id: userId,
-        lastLockedTime: new Date(),
-      });
       throw new ForbiddenException(
         'sorry, your account was blocked due to too many login attempts',
       );
@@ -57,9 +55,8 @@ export class AuthService {
     return user;
   }
 
-  async updateloginAttempts(userId: string) {
-    let currentAttempts = await this.redisService.getLoginAttemptsById(userId);
-    await this.redisService.updateLoginAttempts(userId, currentAttempts++);
+  async updateloginAttempts(userId: string, currentAttempts: number) {
+    await this.redisService.updateLoginAttempts(userId, currentAttempts);
   }
 
   async signJwtToken(user: UserDocument) {
@@ -68,11 +65,6 @@ export class AuthService {
         userId: user._id,
       }),
     };
-  }
-
-  async generateHashPassword(plainTextPassword: string): Promise<string> {
-    const salt = await bcrypt.genSalt(8);
-    return bcrypt.hash(plainTextPassword, salt);
   }
 
   async isMatchedPassword(

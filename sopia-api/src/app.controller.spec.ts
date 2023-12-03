@@ -1,22 +1,33 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
+import { MockFunctionMetadata, ModuleMocker } from 'jest-mock';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
+const moduleMocker = new ModuleMocker(global);
 
 describe('AppController', () => {
-  let appController: AppController;
+  let controller: AppController;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+    })
+      .useMocker((token) => {
+        if (typeof token === 'function') {
+          const mockMetadata = moduleMocker.getMetadata(
+            token,
+          ) as MockFunctionMetadata<any, any>;
+          const Mock = moduleMocker.generateFromMetadata(mockMetadata);
+          return new Mock();
+        }
+      })
+      .compile();
 
-    appController = app.get<AppController>(AppController);
+    controller = moduleRef.get(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('health', () => {
+    it('should works', async () => {
+      expect(await controller.health()).toBe('OK');
     });
   });
 });
