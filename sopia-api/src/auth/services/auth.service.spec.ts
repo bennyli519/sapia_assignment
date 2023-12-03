@@ -72,12 +72,12 @@ describe('AuthService', () => {
       redisServiceMock.getLoginAttemptsById.mockResolvedValueOnce(0);
       authService.isMatchedPassword = jest.fn().mockResolvedValueOnce(true);
 
-      const result = await authService.validateUser('test@example.com', 'test');
+      const result = await authService.validateUser('test@gmail.com', 'test');
 
       expect(result).toEqual(mockUser);
       expect(redisServiceMock.updateLoginAttempts).toHaveBeenCalledWith(
         '123',
-        1,
+        0,
       );
     });
 
@@ -94,7 +94,7 @@ describe('AuthService', () => {
       redisServiceMock.getLoginAttemptsById.mockResolvedValueOnce(3);
 
       await expect(
-        authService.validateUser('test@example.com', 'password'),
+        authService.validateUser('test@gmail.com', 'password'),
       ).rejects.toThrowError(ForbiddenException);
     });
 
@@ -104,7 +104,7 @@ describe('AuthService', () => {
       authService.isMatchedPassword = jest.fn().mockResolvedValueOnce(false);
 
       await expect(
-        authService.validateUser('test@example.com', 'invalid_password'),
+        authService.validateUser('test@gmail.com', 'invalid_password'),
       ).rejects.toThrowError(UnauthorizedException);
     });
   });

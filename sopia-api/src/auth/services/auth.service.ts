@@ -52,6 +52,9 @@ export class AuthService {
     const isMatched = await this.isMatchedPassword(password, user.password);
     if (!isMatched) throw new UnauthorizedException('Invalid Password');
 
+    // clear login attempts if user successfully logged in
+    await this.redisService.updateLoginAttempts(userId, 0);
+
     return user;
   }
 
