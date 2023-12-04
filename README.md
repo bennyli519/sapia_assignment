@@ -1,4 +1,6 @@
 # Getting Start
+## Sequence Diagram
+<img width="918" alt="image" src="https://github.com/bennyli519/sopia/assets/22862720/9f197ca6-d2a3-4b5c-88d0-760f2889c0ec">
 
 ## Back-end
 
