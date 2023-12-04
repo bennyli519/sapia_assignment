@@ -2,6 +2,36 @@
 
 ## Back-end
 
+## Folder structure
+```
+├── database(seed for docker)
+│   ├── data
+│   └── mongo-init.js
+├── src
+│   ├── app.controller.spec.ts
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   ├── auth
+│   ├── common
+│   ├── interceptor
+│   ├── main.ts
+│   ├── redis
+│   └── user
+├── test
+│   ├── e2e
+│   └── jest-e2e.json
+├── docker-compose.yaml
+├── nest-cli.json
+├── package-lock.json
+├── package.json
+├── Dockerfile
+├── README.md
+├── tsconfig.build.json
+├── tsconfig.json
+└── yarn.lock
+```
+### Enter to the folder and start
 ```bash
 cd sopia-api
 yarn 
@@ -10,7 +40,6 @@ yarn
 ```bash
 docker compose up -d
 ```
-
 ### Front-end
 ```bash
 cd web-app
