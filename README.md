@@ -38,3 +38,7 @@ curl --location --request POST 'localhost:4001/auth/login' \
 Email               | Password    |
 --------------------| ------------|
 dev@gmail.com       | dev         |
+
+### Demo Recording
+
+[record.webm](https://github.com/bennyli519/sopia/assets/22862720/34ba9d80-4104-41b2-9ac2-a40eea8545f1)
