@@ -38,6 +38,10 @@
 cd sopia-api
 yarn 
 ```
+### Config environment variables
+```bash
+cp .env.example .env
+```
 ### Run the container
 ```bash
 docker compose up -d
