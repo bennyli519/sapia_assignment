@@ -35,7 +35,7 @@
 ```
 ### Enter to the folder and start
 ```bash
-cd sopia-api
+cd sopia/sopia-api
 yarn 
 ```
 ### Config environment variables
@@ -48,7 +48,7 @@ docker compose up -d
 ```
 ### Front-end
 ```bash
-cd web-app
+cd sopia/web-app
 yarn
 yarn start
 ```
