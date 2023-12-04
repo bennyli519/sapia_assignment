@@ -20,15 +20,5 @@ apiClient.interceptors.request.use(
   }
 );
 
-apiClient.interceptors.response.use(
-  (response) => {
-    console.log('Response:', response);
-    return response;
-  },
-  (error) => {
-    console.error('Response Error', error);
-    return Promise.reject(error);
-  }
-);
 
 export default apiClient;
